@@ -1,4 +1,4 @@
-object Solution {
+object MergeSortedArray {
   def merge(nums1: Array[Int], m: Int, nums2: Array[Int], n: Int): Unit = {
     def getInsertIndex(i: Int, j: Int): Int = i + j + 1
 
