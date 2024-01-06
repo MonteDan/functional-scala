@@ -1,6 +1,8 @@
 .metals
 .scala-build
 
+utils/
 
 temp.js
 temp.ts
+
