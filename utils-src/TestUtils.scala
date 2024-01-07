@@ -23,7 +23,7 @@ object TestUtils {
       length: Int = 10,
       variance: Double = 1
   ): Array[Int] =
-    Array.fill(length)(generateRandomNumber(0, (length * variance).toInt))
+    Array.fill(length)(randomNumber(0, (length * variance).toInt))
 
   def shuffleArray[T: ClassTag](arr: Array[T]): Array[T] =
     Random.shuffle(arr.toList).toArray
