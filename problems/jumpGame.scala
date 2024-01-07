@@ -18,10 +18,13 @@ object JumpGame {
       println()
     }
     def testRandom(length: Int): Unit =
-      (length |> (T.randomIntArray(_, 4)) |> test)
+      (length |> (T.randomIntArray(_, .2)) |> test)
 
     test(Array(4,3,2,1,0,5))
     test(Array(2,2,0,1,4))
     test(Array(3,2,4,1,0,3))
+
+    testRandom(20)
+    testRandom(50)
   }
 }
