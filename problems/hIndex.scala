@@ -51,8 +51,12 @@ object HIndex {
   def main(args: Array[String]): Unit = {
 
     def test(citations: Array[Int]): Unit = {
+      val (output, runtime, memory) = T.measure {
+        hIndex(citations)
+      }
       printf("%-7s %-20s\n", "CASE:", citations.mkString(","))
-      printf("%-7s %-20s\n", "output:", hIndex(citations))
+      printf("%-7s %-20s\n", "output:", output)
+      println(s"$runtime ms, $memory KB")
       println()
     }
     def testRandom(length: Int): Unit = 
