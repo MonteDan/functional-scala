@@ -2,9 +2,29 @@ package utils
 
 import scala.reflect.ClassTag
 import scala.util.Random
+import scala.concurrent.duration._
 import scala.collection.immutable.LazyList
 
 object TestUtils {
+
+  /** Measures code: measure{snippet}=> (result, runtime [ms], memory [KB]) */
+  def measure[R](code: => R): (R, BigDecimal, BigDecimal) = {
+    val startMemory =
+      Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()
+    val startTime = System.nanoTime()
+
+    val result: R = code
+
+    val endTime = System.nanoTime()
+    val endMemory =
+      Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()
+
+    val runtime = BigDecimal(endTime - startTime) / 1000000
+    val memory = BigDecimal(endMemory - startMemory) / 1024
+
+    (result, runtime, memory)
+  }
+
   def generateRandomNumber(min: Int = 1, max: Int = 100): Int =
     (new Random).nextInt((max - min) + 1) + min
 
@@ -13,7 +33,7 @@ object TestUtils {
       variance: Double = 1
   ): Array[Int] =
     Array.fill(length)(generateRandomNumber(0, (length * variance).toInt))
-  
+
   def random(): Double = (new Random()).nextDouble()
 
   def randomNumber(min: Int = 1, max: Int = 100): Int =
@@ -27,13 +47,6 @@ object TestUtils {
 
   def shuffleArray[T: ClassTag](arr: Array[T]): Array[T] =
     Random.shuffle(arr.toList).toArray
-
-
-
-
-
-
-
 
   /** Inclusive range type: Range */
   def rangeR(start: Int = 0, end: Int = 10, step: Int = 1): Range =
